@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -47,16 +48,24 @@ namespace MiddleWareDemo
 
             app.UseFacebookAuthentication(new FacebookAuthenticationOptions
             {
-                AppId = "490383194484704", AppSecret = "c05a85b5fcd1c1e2b828b4d641c82e42", SignInAsAuthenticationType = "ApplicationCookie"
+                AppId = "490383194484704",
+                AppSecret = "c05a85b5fcd1c1e2b828b4d641c82e42",
+                SignInAsAuthenticationType = "ApplicationCookie"
             });
+
+
             app.UseWebApi(config);
 
-            app.UseNancy(conf => 
-            {
-                    conf.PassThroughWhenStatusCodesAre(HttpStatusCode.NotFound);
-            });
 
-            //app.Use(async (ctx, next) => {
+            app.Map("/nancy", mappedApp => { mappedApp.UseNancy(); });
+
+            //app.UseNancy(conf =>
+            //{
+            //    conf.PassThroughWhenStatusCodesAre(HttpStatusCode.NotFound);
+            //});
+
+            //app.Use(async (ctx, next) =>
+            //{
             //    await ctx.Response.WriteAsync("<html><head></head><body>Hello World</body></html>");
             //});
         }

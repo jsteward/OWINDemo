@@ -14,9 +14,9 @@ namespace MiddleWareDemo
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            //RouteConfig.RegisterRoutes(RouteTable.Routes);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            RouteTable.Routes.MapRoute("Default", url:"{controler}/{action}", defaults: new {controller="Home", action="Index"});
+            //RouteTable.Routes.MapRoute("Default", url:"{controler}/{action}", defaults: new {controller="Home", action="Index"});
         }
     }
 }
