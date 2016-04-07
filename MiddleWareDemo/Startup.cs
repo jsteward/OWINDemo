@@ -26,6 +26,7 @@ namespace MiddleWareDemo
                     var watch = new Stopwatch();
                     watch.Start();
                     ctx.Environment["DebugStopwatch"] = watch;
+
                 },
                 OnOutgoingRequest = (ctx) =>
                 {
@@ -36,22 +37,26 @@ namespace MiddleWareDemo
 
             });
 
+            app.Use<AuthMiddlewareExtensions>();
+
             var config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = "ApplicationCookie",
-                LoginPath = new PathString("/Auth/Login")
-            });
 
 
-            app.UseFacebookAuthentication(new FacebookAuthenticationOptions
-            {
-                AppId = "490383194484704",
-                AppSecret = "c05a85b5fcd1c1e2b828b4d641c82e42",
-                SignInAsAuthenticationType = "ApplicationCookie"
-            });
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //{
+            //    AuthenticationType = "ApplicationCookie",
+            //    LoginPath = new PathString("/Auth/Login")
+            //});
+
+
+            //app.UseFacebookAuthentication(new FacebookAuthenticationOptions
+            //{
+            //    AppId = "490383194484704",
+            //    AppSecret = "c05a85b5fcd1c1e2b828b4d641c82e42",
+            //    SignInAsAuthenticationType = "ApplicationCookie"
+            //});
 
 
             app.UseWebApi(config);
